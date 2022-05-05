@@ -1,0 +1,119 @@
+/* 
+@import opek-lib.css
+*/
+@import "jquery-ui-1.10.3/themes/base/jquery-ui.css";
+@import "DataTables-1.9.4/media/css/demo_page.css";
+@import "DataTables-1.9.4/media/css/jquery.dataTables_themeroller.css";
+@import "DataTables-1.9.4/examples/examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css";
+@import "TableTools-2.1.5/media/css/TableTools.css";
+
+.date-picker{width:6em}
+
+
+table, th, td { margin:0.5em; padding:0.5em}
+.datadiv { float:left;}
+#kildetable {background-color:#E2E4FF}
+
+/* table.th{ width:5em} */
+/* #oppsett table{width:25em} */
+/* #oppsett th.first{width:15em} */
+#events table {width:40em; float:left;}
+#klasser table {width:20em}
+#lister table {width:35em}
+
+/* #mettable table {width:40em; */ /* table-layout:auto; */ /* } */
+
+/* .tab_* {text-align:left} */
+.tab_velg, .tab_post {width:3em; text-align:left}
+.tab_tid {width:5em; text-align:left}
+.tab_klasse {width:5em; text-align:left}
+.tab_navn {width:15em; text-align:left}
+
+/* search fields in mettable */
+/* .search_init{width:8em} */
+.input_s {width:4em; float:left}
+.input_m {width:6em; float:left}
+.input_l {width:12em; float:left}
+
+
+.dataTables_filter {
+    float: left;
+}
+
+.dataTables_length {
+    float: right;
+    text-align: right;
+}
+
+.highlighted, .datatablerowhighlight {
+    background-color: #ECFFB3 !important;
+}
+.strekkvinner {
+    color: blue ;
+}
+
+.gold { background-color: #F5D134; }
+.silver { background-color: #CDCDCD; }
+.bronze { background-color: #F8A87A; }
+
+/*
+
+.dataTables_filter, #eventtable_filter, #classtable_filter, #restabell_filter, #strekktabell_filter, #controlstable_filter, #mettable_filter{
+//    width: 50%;
+//    float: left;
+}
+
+.dataTables_length, #eventtable_length, #classtable_length, #restabell_length, #strekktabell_length, #controlstable_length, #mettable_length {
+ //   width: 40%;
+//    float: right;    text-align: right;
+}
+*/
+
+#events, #eventsbedrift, #tabs , #klasser, #graf{
+    font-size:x-large;
+}
+#klasser {
+    font-size:xx-large;
+}
+
+button{font-size:xx-large;
+       text-align: left;
+}
+
+button.knapp{ width:100%;
+	background-color:lightblue; 
+	    font-size:xx-large}
+
+
+@media all and (min-width: 36em){
+
+    #events, #tabs , #klasser, #graf, #resultat, #metwho{
+	font-size:large;
+    }
+
+    button.knapp{ 
+	font-size:large}
+    button{
+	font-size:large;
+    }
+
+
+}
+
+
+@media all and (min-width: 50em){
+    #events, #tabs , #klasser, #graf, #resultat, #metwho{
+	font-size:medium;
+    }
+
+    button.knapp{ font-size:medium}
+    button{font-size:medium; }
+
+}
+
+@media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px) { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }

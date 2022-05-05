@@ -1,0 +1,292 @@
+<!-- ->>
+    <script type="text/javascript" src="jquery-ui-1.10.3/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.10.3/ui/jquery-ui.js"></script>
+
+    <script type="text/javascript" language="javascript" src="DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" src="TableTools-2.1.5/media/js/TableTools.min.js"></script>
+
+    <script type="text/javascript" src=Highcharts/js/highcharts.js></script>
+    <script type="text/javascript" src=Highcharts/js/modules/exporting.js></script>
+    <script type="text/javascript" src="JSON-js/json2.js"></script>
+<!-- -->
+
+<!-- <div id=busy><img src=ajax-loader.gif> Vent mens vi laster dokument eller velg annen flik.</div> -->
+<div id="tabs">
+  <ul>
+    <li><a href="#oppsett" class=tab1><span title='Liste over kilder til resultater'>Kilde</span></a></li>
+    <li><a href="#eventstab" class=tab1><span title='Liste over løp fra en valgt kilde'>Løp</span></a></li>
+    <li><a href="#klasser" class=tab1><span title='Klasser for et valgt løp'>Klasser</span></a></li>
+    <li><a href="#resultat" class=tab1><span title='Resultater for en valgt klasse'>Resultater</span></a></li>
+    <li><a href="#metwho" class=tab1><span title='Se tidspunkt for personer på poster for et valgt løp'>Hvem traff..</span></a></li>
+    <li><a href="#dok" class=tab1><span title='Dokumentasjon'>Hjelp</span></a></li>
+    <li id=busy><span class=tab1><img src=ajax-loader.gif>Laster</span></li>
+  </ul>
+
+<!--  <div id="progressbar"></div> -->
+  <div id=oppsett class=datadiv>
+<!--
+    <table>
+      <tr><td><img src=mylogo.gif width=30><td width=400><h2>Opek - O-resultater</h2>
+    </table>
+-->
+      <h2>Opek - O-resultater<img src=mylogo.gif width=30></h2>
+
+    <h3>Fra <input id="fradato" class="date-picker" type="text" />
+      til <input id="tildato" class="date-picker" type="text"  /></h3>
+
+<div id=oppsettlop>
+<!--
+    <table border=1 id=kildetable> <!-- <caption align=left><b align=left>Forvalgte løp</b></caption> -->
+<!--
+      <tr><th align=left><button class=knapp  onclick="javascript:findBrikkesys('http://brikkesys.no/rest_webservis.php?fromDate=' + $('#fradato').val() + '&organisationIds=mnsbik','Brikkesys bedrift')">Bedrift</button><td>Trondheim
+
+      <tr><th align=left><button class=knapp  onclick="javascript:findBrikkesys('http://brikkesys.no/rest_webservis.php?fromDate=' + $('#fradato').val(),'Brikkesys bedrift')">Brikkesys</button><td>Alt
+
+      <tr><th align=left><button class=knapp  onclick="javascript:findEventorEvents( 'https://eventor.orientering.no/api', '/events?fromDate=' + $('#fradato').val() + '&toDate=' + $('#tildato').val() + '&organisationIds=11,15&classificationIds=1,2,3,4,5', 'Eventor Trøndelag')">Eventor Trøndelag</button><td>Med interne klubbløp
+
+      <tr><th align=left><button class=knapp  onclick="javascript:findEventorEvents( 'https://eventor.orientering.no/api', '/events?fromDate=' + $('#fradato').val() + '&toDate=' + $('#tildato').val() + '&classificationIds=1,2,3,4', 'Eventor')">Eventor</button>
+	  <td>Uten interne klubbløp
+
+      <tr><th align=left><button class=knapp  onclick="javascript:findBrikkesys( 'http://obase.se/nthi/content.xml','NTNU BIL internløp', 'http://obase.se/nthi/run', '.xml' )">NTNU BIL</button><td>Torsdagsløpene
+
+    <tr><th align=left><button class=knapp  onclick="javascript:findEventorEvents( 'https://eventor.orientering.se/api', '/events?fromDate=' + $('#fradato').val() + '&toDate=' + $('#tildato').val() + '&classificationIds=1,2,3,4,5', 'Eventor Sverige')">Eventor Sverige</button><td>(ikke aksess).
+
+      <tr><th align=left><button class=knapp  onclick="javascript:findEventorEvents( 'https://eventor.orientering.no/api', '/events?fromDate=' + $('#fradato').val() + '&toDate=' + $('#tildato').val() + '&organisationIds=320&classificationIds=1,2,3,4,5', 'Eventor Trøndelag')">Eventor Freidig</button><td>Med interne klubbløp
+
+      <tr><th align=left><button class=knapp  onclick="javascript:findBrikkesys( 'http://freidig.idrett.no/~helger/opek/ekko.php?dir=1','Freidig resultatbase', 'http://freidig.idrett.no/~helger/opek/ekko.php?EventId=', '' )">Freidigbasen</button><td>Etime resultater
+</table>
+-->
+<!--
+        <tr><td><button class=knapp onclick='javascript:findClasses("Freidig eget" , "http://obase.se/nthi/rundata03.xml")'>NTNUI resultat</button><td>Test
+
+       <tr><td><button class=knapp onclick='javascript:findClasses("Freidig eget" , "http://freidig.idrett.no/~helger/event.xml")'>Freidig resultat</button><td>Test
+
+        <tr><td><button class=knapp onclick='javascript:findClasses("Freidig liste" , "http://freidig.idrett.no/~helger/event.htm")'>Freidig liste</button><td>Test
+
+        <tr><td><button  class=knapp  onclick='javascript:findClasses("NTNU bedrift" , "http://orientering.stbik.no/graf/test/ntnu.xml")'>Gløshaugen</button><td>Test
+-->
+
+
+
+<!-- not used after xml opened
+ 
+    <tr><th>Løp<th>Arrangert<th>Resultater
+        <tr><td><button style="width:70%" onclick='javascript:findClasses("NTNU bedrift" , "http://brikkesys.no/iof-results.php?id=892")'>Gløshaugen</button><td>2013-04-16<td>2013-04-16
+	<tr><td><button style="width:70%" onclick='javascript:findClasses("Ila bedrift", "http://brikkesys.no/iof-results.php?id=903")'>Ila</button><td>2013-04-23<td>2013-04-23
+	<tr><td><button style="width:70%" onclick='javascript:findClasses("Muruvik bedrift", "http://brikkesys.no/iof-results.php?id=911")'>Muruvik</button><td>2013-04-30<td>2013-04-30
+     </table>
+<p> <p>
+-->
+</div>
+
+
+<div id=version>
+  <p><button onclick="javascript:get_sources('opek-kilde.json');">Hent kildeliste</button> 
+    <p><button onclick="javascript:see_it('dok');$('#dok').tabs({ active: 4 })">Ny versjon</button> av leseren
+<br>
+Versjon 1.6 - rettet feil i tid i Hvem traff jeg på posten ?
+
+</div>
+
+</div>
+
+    <div id=eventstab align=left class=datadiv>
+      <ul>
+        <li><a href="#events"><span title='Liste over søkte løp'>Hentes</span></a></li>
+        <li><a href="#my_events"><span title='List over lagrede løp'>Lagret</span></a></li>
+      </ul>
+      <div id=events class=datadiv><h2>Velg kilde</h2></div>
+      <div id=my_events class=datadiv>Tomt</div>
+    </div>
+
+    <div id=klasser class=datadiv><h2>Velg løp</h2></div>
+
+    <div id=resultat align=left class=datadiv>
+<!--      <span id=resultatnavn>Klassenavn</span> -->
+      <ul>
+        <li><a href="#lister"    function(){
+	alert("tabs active")
+    });
+><span title='Resultatliste med sluttider.'>Lister</span></a></li>
+        <li><a href="#snitter" class="tab1"><span title='Kurver etter snittløper i klynge.'>Snitt</span></a></li>
+        <li><a href="#grafer" class="tab1"><span title='Kurver etter løper i tet'>Tet</span></a></li>
+        <li><a href="#bester" class="tab1"><span title='Kurver etter beste på hvert strekk'>Best</span></a></li>
+        <li><a href="#tabell" class="tab1"><span title='Strekktider for godkjente strekk'>Strekk</span></a></li>
+        <li><a href="#controls" class="tab1"><span title='Liste og tider for alle stemplede poster'>Poster</span></a></li>
+      </ul>
+ 
+      <div id=lister class=datadiv><h2>Velg klasse</h2></div>      
+      <div id=grafer class=datadiv><h2></h2></div>
+      <div id=snitter class=datadiv><h2></h2></div>
+      <div id=bester class=datadiv><h2></h2></div>
+      <div id=tabell class=datadiv><h2>Velg klasse</h2></div>  
+      <div id=controls class=datadiv><h2>Velg klasse</h2></div>
+    </div>      
+    <div id=metwho>Velg løp</div>
+
+
+    <div id=dok>
+    <ul>
+      <li><a href="#dok-bruk"><span>Bruk</span></a></li>
+      <li><a href="#dok-resultater"><span>Resultater</span></a></li>
+      <li><a href="#dok-metwho"><span>Hvem traff..</span></a></li>
+      <li><a href="#dok-om"><span>Om</span></a></li>
+      <li><a href="#dok-versjon"><span>Versjon</span></a></li>
+    </ul>
+<!-- <h2>Dokumentasjon</h2> -->
+
+<div id=dok-bruk>
+<h2>Bruk</h2>
+Rytmen i programmet er at man 
+velger først Kilde, så Løp, dernest Klasse og så  kommer resultatene fram og man kan velge de rapportene man vil se.
+Når man velger en kilde eller et løp hentes data fra tjener og det kan ta  litt tid avhengig av hva slags nett man har.
+Når dataene er klare kommer neste flik med resultatene opp. Gamle data ligger der inntil de er overskrevet og kan
+ses mens man henter nytt.
+
+<h3>Tabeller</h3>Dataene er  sortert i tabeller og er alle søkbare og responderer tegn for  tegn i alle søylene. 
+Søkeord skilles med mellomrom og alle må være med forat det skal vises.
+Klikk på den  overskriften i søylene for sortering. Et klikk til snur sorteringen.
+
+<h3>Kurver</h3>
+Grafene er aktive og man får info om løper og tider ved å holde musa over en kurve.
+Kikk på en løpers navn for å ta bort eller  legge ham  til. Grafen blir
+da retegnet og fokusert på valgte løpere.
+
+<h3>Lagring</h3>
+Programmet lagrer hvert arrangement lokalt i webleserens dataområde. 
+Dette ligger under fliken Løp->Lagret.
+Dette kan vokse over tid og man har en knapp for å nullstille.
+Under fliken Løp->Hentes så er det en liste over løpe for en kilde og da hentes det fra tjeneren og overskrives det som ligger lagret.
+</div>
+
+<div id=dok-resultater>
+<h3>Resultater</h3>
+<ul>
+<li><b>Lister</b> viser sluttid og status er ikke offisielle resultatlister, men tallmateriale fra databasen.
+<li><b>Snitt-grafene</b> viser som referanse den løperen som ligger midt i den gruppen (1-10) som er vist.
+Dette gjør det lettere å se prestasjoner i forhold til dem rundt deg - mer for de som ikke er i tet.
+<li><b>Tet-grafene</b> viser i forhold til den løperen som er i tet. Kurvene blir litt vanskelige å lese når ledelsen bytter.
+<li><b>Best-grafene</b> har den beste på hvert strekk som referanse. Vinner man alle strekk er det en rett linje. 
+<li><b>Strekk</b> viser de postene og tidene som kurvene  er laget på grunnlag av. Postene er vist i den rekkefølge som den beste løperen som var 
+godkjent med færrest poster. Løkker er nøstet ut i dens rekkefølge. Horisontal gafling med forskjellige poster uten løkker løses ved
+at man antar at andre koder er ok hvis neste strekk er som referanse-løperen. Hvis tiden 99:00:00 dukker opp har vi påtruffet
+en postkombinasjon programmet ikke skjønner - si gjerne fra.
+<li><b>Poster</b> er en rå liste over poster i den sekvens det er løpt.
+</div>
+
+<div id=dok-metwho>
+<h3>Hvem traff jeg på posten</h3>
+Her kan man se når folk stemplet på postene. Brukergrensesnittet er en tabell  med utvidet søkemulighet 
+per søyle. Da kan man velge flere navn samtidig med tegnet '|' ( Nilsen|Søre).
+    <p>Scenario 1 : Se hvem som var sammen på en post. Fyll deler av navn i Søk - f.eks. Nilse. Klikk så på en post du
+er interessert i. Da kommer det fram alle personer på posten +- 10 minutter. Klikk Nullstill for å se søk med liste over poster igjen.  
+    <p>Scenario 2 : se hvordan flere personer løp sammen ved å skrive deler av navnene i navnefeltet eks. 'nilsen|sørens'.
+<p>Man kan lage veldig komplekse søk
+med  spesialtegn som 
+<ul>
+<li>'|' - eller  (Nilsen|Søre)
+<li>'^' - fra begynnelsen av feltet (^nil)
+<li>'$' - mot slutten av feltet (rry$)
+<li>'.*' - vilkårlig tegn midt i (nil.*har)
+</ul>
+Bokstavstørrelse overses.
+<p>
+</div>
+
+
+<div id=dok-om>
+<h3>Om</h3>
+
+Programmet er  et brukergrensesnitt mot orienteringsresultater og til å brukes på alle 
+moderne åpne platformer
+fra pekefoner og nettbrett til PC'er. Ideen er å bruke moderne teknologi til å gi brukeren
+en mykere og mer dynamisk opplevelse fordi koden kjører i nettleseren og kan respondere uten å hente en ny webside.
+
+<p>Det forutsetter moderne nettlesere  - Firefox, Thunderbird, Opera, Safari og Explorer 9.
+Virker f.eks. på Internet Explorer 9 men ikke 7.
+
+<p>Det realiserer potensialet som ligger i standardiserte grensesnitt fra Orienteringsforbundet (IOF XML),
+som nå er innført av Brikkesys og Eventor. Da kan man automatisk hente lister over arrangementer og hente
+og presentere resultatene som man vil så fort  de er klare uavhengig av resultatsystemer og web-eiere.
+<p>Teknologien er også moden med HTML-5, Javascript, AJAX og godt utvalg av åpne biblioteker som muligjør avansert 
+funksjonalitet med lite ekstra innsats.
+
+<p>
+Denne leseren kan innbygges i egne websider.
+Kopier koden for denne web-siden inn i egen side.
+
+<p>Programmet er skrevet og eies av Olav@Kvittem.no. Ta gjerne kontakt for å forbedre, tilpasse og bruke det.
+
+</div>
+
+<div id=dok-versjon>
+<h3>Versjon</h3>
+
+<ul><caption><b>Versjon 1.5 - 18.4.2015</b></caption>
+  <li>Raskere resultater - venter med kurver til de velges - bedre for mobil
+  <li>Mer robust - ignorerer dobbelstempling 
+</ul>
+
+<ul><caption><b>Versjon 1.4 - 25.4.2014</b></caption>
+<li>Støtter løyper med gafling med likt antall poster
+</ul>
+
+<ul><caption><b>Versjon 1.3 - 16.6.2013</b></caption>
+<li>Import av Etime resultater
+<li>Innbyggbar i egne web-sider
+<li>Støtter flerdagsarrangementer i Eventor
+<li>Raskere oppstart med færre biblioteksfiler
+<li>Sorterer løpslister på dato
+<li>Kompakt Hvem traff jeg på post
+</ul>
+
+</ul>
+<ul><caption><b>Ønsker</b></caption>
+<li>Slå opp mer info om arrangement
+<li>Hva trenger du/vi ?
+</ul>
+
+<ul><caption><b>Versjon 1.2 - 3.6.2013</b></caption>
+<li>Bestbaserte kurver - etter beste på hvert strekk
+<li>Velge løpere i tabellene for dedikerte grafer
+<li>Rad under muspeker opplyses - lettere å lese tabell
+<li>Fargelegg strekktabellen etter tid og plassering (medaljer).
+<li>Lagrer løps-resultater  lokalt i webleser - se ny flik 'Løp->Lagret'.
+<li>Lagt til NTNU internløp
+<li>Rettet info over snitt-kurvene. Viser nå løpertid og tid i forhold til snittløper.
+</ul>
+
+<ul><caption><b>Versjon 1.1 - 28.5.2013</b></caption>
+<li>Ny parameter result gjør det mulig å hente resultater hvilket som helst sted
+<ul><li>bruk : opek.html?result='url til xml-resultat-fil'</ul>
+<li>rettet sortering i strekktidstabeller.
+<li>standard sortering etter tid i Hvem traff jeg på posten.
+</ul>
+
+</div>
+<!-- 
+    <div id=grafer1><h2>Velg klasse</h2></div>
+        <div id=grafer2></div>
+        <div id=grafer3></div>
+        <div id=grafer4></div>
+        <div id=grafer5></div>
+-->
+    </div> 
+
+ <!--     
+<div id=logg autohide=true><hr><h3>Logg</h3></div> 
+-->
+
+</div> <!-- of tab -->
+
+
+<script>
+
+/*
+$( "#progressbar" ).progressbar({
+  complete: $("#progressbar").progressbar("disable")
+});
+*/
+
+
+</script>

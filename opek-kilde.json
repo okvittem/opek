@@ -1,0 +1,51 @@
+[{
+    "title": "Brikkesys bedrift",
+    "description": "Trondheim",
+    "events": "http://brikkesys.no/rest_webservis.php?organisationIds=mnsbik", 
+    "results": "http://brikkesys.no/iof-results30.php?download=true&id=",
+    "results_tail": "",
+    "proxy": ""
+}, {
+    "title": "Brikkesys",
+    "description": "Alle",
+    "events": "http://brikkesys.no/rest_webservis.php?", 
+    "results": "http://brikkesys.no/iof-results30.php?download=true&id=",
+    "results_tail": "",
+    "proxy": ""
+}, {
+    "title": "Eventor Trøndelag",
+    "description": "Med interne klubbløp",
+    "events": "https://eventor.orientering.no/api/events?organisationIds=11,15&classificationIds=1,2,3,4,5",
+    "results": "https://eventor.orientering.no/api/results/event?includeSplitTimes=true&eventId=",
+    "results_tail": "",
+    "proxy": "eventor.php?url="
+}, {
+    "title": "NTNU-b.i.l.",
+    "description": "Torsdagsløpene",
+    "events": "http://brikkesys.no/rest_webservis.php?organisationIds=ntnubil", 
+    "results": "http://brikkesys.no/iof-results30.php?download=true&id=",
+    "results_tail": "",
+    "proxy": ""
+}, {
+    "title": "NTNU-b.i.l. -2018",
+    "description": "Torsdagsløpene",
+    "events": "http://www.ntnu.no/ntnu-bil/grupper/o/resultater/content.xml?", 
+    "results": "http://www.ntnu.no/ntnu-bil/grupper/o/resultater/run",
+    "results_tail": ".xml",
+    "proxy": ""
+}, {
+    "title": "Eventor",
+    "description": "Uten interne klubbløp",
+    "events": "https://eventor.orientering.no/api/events?classificationIds=1,2,3,4",
+    "results": "https://eventor.orientering.no/api/results/event?includeSplitTimes=true&eventId=",
+    "results_tail": "",
+    "proxy": "eventor.php?url="
+}, {
+    "title": "Freidigbasen",
+    "description": "Etime resultater",
+    "events": "http://freidig.idrett.no/o/opek-data/ekko.php?dir=1", 
+    "results": "http://freidig.idrett.no/o/opek-data/ekko.php?EventId=",
+    "results_tail": "",
+    "proxy": ""
+}]
+
