@@ -4,7 +4,9 @@
     "events": "http://brikkesys.no/rest_webservis.php?organisationIds=mnsbik", 
     "results": "http://brikkesys.no/iof-results30.php?download=true&id=",
     "results_tail": "",
-    "proxy": ""
+    "proxy": "",
+    "reports":"http://brikkesys.no/poeng-cc.php?report=loype&raceid=",
+    "reports_txt":"etter løype"
 }, {
     "title": "Brikkesys",
     "description": "Alle",

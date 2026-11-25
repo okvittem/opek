@@ -151,7 +151,7 @@ function findSiteEvents( site){
     if ( false && site.proxy){
 	findEventorEvents(site.events,  '&fromDate=' + $('#fradato').val() + '&toDate=' + $('#tildato').val(), site.title);
     } else {
-	findBrikkesys( site.events + '&fromDate=' + $('#fradato').val() + '&toDate=' + $('#tildato').val(), site.title, site.results, site.results_tail, site.proxy);
+	findBrikkesys( site.events + '&fromDate=' + $('#fradato').val() + '&toDate=' + $('#tildato').val(), site.title, site.results, site.results_tail, site.proxy, site.reports);
     }
     
 }
@@ -175,7 +175,7 @@ function getXML(resurl, eat_func, eat_parm){
     });
 }
 
-function findBrikkesys(url, tittel, res_prefix, res_tail, proxy){
+function findBrikkesys(url, tittel, res_prefix, res_tail, proxy, reports){
     www_proxy = proxy; //global
  
     if ( res_prefix){ 
@@ -190,11 +190,11 @@ function findBrikkesys(url, tittel, res_prefix, res_tail, proxy){
     $('#events', document).html('<table id=eventtable border=1 align=left><caption><b>' + tittel + '</b></caption>');
     $('#eventtable', document).append('<thead><tr><th  style="width:12em">Løp<th align=left>Web<th align=left>Arrangert<th align=left>Resultater</thead><tbody>');
 
-    getXML( url, eatEventBrikkesys);
+    getXML( url, eatEventBrikkesys, reports);
 }
 
 
-function eatEventBrikkesys(xml){
+function eatEventBrikkesys(xml, reports){
 //    $(xml).find('EventList').each(function(){
 //	var official_results= $(this).attr('status') == 'complete';
 			
@@ -205,7 +205,7 @@ function eatEventBrikkesys(xml){
 		registerEvent(this, name);
 	    });
 	} else { // brikkesys
-	    registerEvent(this);
+	    registerEvent(this, "", reports);
 	}
     });
 //    });
@@ -218,7 +218,7 @@ function eatEventBrikkesys(xml){
 }
 
 
-function registerEvent(eventobj, prefix){  // eventobj is event or eventRace
+function registerEvent(eventobj, prefix, reports){  // eventobj is event or eventRace
     var event=$(eventobj).children('EventId').text();
     var raceid= $(eventobj).children('EventRaceId').text();
 
@@ -230,7 +230,7 @@ function registerEvent(eventobj, prefix){  // eventobj is event or eventRace
 	|| $(eventobj).children('StartDate').text()
 	|| $(eventobj).children('RaceDate').children('Date').text()
 	|| $(eventobj).children('RaceDate').text();
-    var weburl=$(eventobj).children('WebURL').text();
+    var weburl = $(eventobj).children('WebURL').text();
     var dt='ingen', last_results;
 
 	
@@ -255,6 +255,8 @@ function registerEvent(eventobj, prefix){  // eventobj is event or eventRace
     var row='<tr><td><button  class=knapp onclick=\'javascript:findClasses("' + name + '" , "' + result_prefix + event + result_tail +'"'  + race + ')\'>' + name  + '</button>';
     if ( weburl != ""){
 	row += '<td>' + '<button class=knapp><a target=arr-web href="' + weburl + '">Web</a></button>';
+    } else if (reports){
+	row += '<td>' + '<button class=knapp><a target=arr-web href="' + reports + event + '">per løype</a></button>';
     } else {
 	row += '<td>';
     }
@@ -707,7 +709,8 @@ function tegn(myclass, raceid) {
     var modelstring=[]; // array of controls strings
     debug_log('før ' + npost.length + ' npost ' + npost) ;
     // 99 battery check killed median Math.floor(runners/e);
-    var npost_med = Math.min.apply(Math, npost);
+    var npost_min = Math.min.apply(Math, npost); // korteste kan mangle poster
+    var npost_med = Math.round( Math.sumPrecise(npost) / npost.length );
     for ( var i=0; i < runners; i++){
 	if (npost[i] === npost_med){  // beste som har riktig antall poster
 	    var legstring= kodetabell[i].toString();
@@ -786,7 +789,7 @@ function tegn(myclass, raceid) {
 		       } else { 
 			   var nextlegid= kodetabell[runner][next] + '-' + kodetabell[runner][next+1];
 			   if ( okleg[variant][nextlegid] && kodetabell[runner][next] != '99'
-			       && kodetabell[runner][next] != '99' ) { 
+			       && kodetabell[runner][next+1] != '99' ) { 
 			       // assume horisontal fork = different controls
 			       var legt =  tidsekv[runner][next] - tidsekv[runner][leg] ;
 			       if ( legt > 0 ) {
@@ -1108,9 +1111,9 @@ function color_medals( tabell, legdelta, best){
     for ( var leg=0; leg < (legdelta[0].length); leg++){
 	var runners=[];
 	for (var runner=0; runner < legdelta.length; runner++){
-	    runners.push(runner);
+	    if ( legdelta[runner] ) runners.push(runner); // not all runners present in legdelta
 	}
-	// sort runners 
+	// sort runners
 	runners.sort( function(a,b){ return legdelta[a][leg] - legdelta[b][leg];});
 	for ( place=0; place < Math.min(legdelta.length, 3); place++){
 	    var selector='#' + tabell + ' tbody tr:nth-of-type(' + (runners[place]+1) + ') td:nth-of-type(' + (leg+4) +')';
